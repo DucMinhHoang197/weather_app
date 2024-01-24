@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const api = {
   key: "c80ae56bbf2aec9dcc5699c4bd4b5c4a",
-  base: "https://api.openweathermap.org/data/2.5",
+  base: "https://api.openweathermap.org/data/2.5/",
 };
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -15,9 +15,9 @@ function App() {
       if (!searchCity) return;
       setLoading(true);
       try {
-        const url = `${api.base}weather?q=${searchCity}&units=metric&APPID=${api.key}`;
+        const url = `${api.base}weather?q=${searchCity}&appid=${api.key}`;
         const response = await fetch(url);
-        const data = response.json();
+        const data = await response.json();
         setWeatherInfo(JSON.stringify(data));
       } catch (error) {
         setErrorMessage(error.message);
@@ -31,7 +31,7 @@ function App() {
     e.preventDefault();
     setSearchCity(searchInput);
   };
-
+  console.log(weatherInfo);
   return (
     <>
       <form onSubmit={handleSubmit}>
